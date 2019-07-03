@@ -1,4 +1,8 @@
 {
-    "version": 2,
-    "name": "now-config-cli"
+  "version": 1,
+  "name": "now-config-cli",
+  "public": true,
+  "github": {
+    "enabled": true
+  }
 }

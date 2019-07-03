@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 let config = {
 
 };
@@ -21,10 +23,10 @@ async function buildConfig() {
 			default: path.basename(process.cwd()),
 		},
 		{
-			type: 'number',
+			type: 'list',
 			name: 'version',
 			message: 'What is the version of Now.sh you wish to deploy with?',
-			default: 2,
+			choices: [1, 2]
 		},
 		{
 			type: 'number',
@@ -32,9 +34,26 @@ async function buildConfig() {
 			message: 'What indentation would you like in your now.json file (in tabs)',
 			default: 2,
 		},
+		{
+			type: 'confirm',
+			name: 'public',
+			message: 'Do you want the source view and logs view to be publicly accessible?',
+			default: true,
+		},
+		{
+			type: 'confirm',
+			name: 'githubEnabled',
+			message: 'Do you want Now For Github to auto publish this project per commit/pull request?',
+			default: true,
+		}
 		]);
 	config.version = answers.version;
 	config.name = answers.name;
+	config.public = answers.public;
+	config.github = {
+		enabled: answers.githubEnabled
+	};
+
 	console.log(chalk.green.bold('Creating/updating now.json File...'));
 
 	fs.writeFileSync(nowPath, JSON.stringify(config, null, answers.tabSize), 'utf8');
@@ -43,7 +62,10 @@ async function buildConfig() {
 	console.log(chalk.green.bold('created/updated now.json file Successfully'));
 	console.log(chalk.white.bold('========================================='));
 
-	console.log(chalk.green.bold('Bye Bye'));
+	console.log(chalk.green.bold('To deploy with Now.sh type: now'));
+	process.exit(0);
+
+
 
 
 
@@ -52,7 +74,6 @@ async function buildConfig() {
 
 }
 
-// const questions = [];
 if (existingConfig) {
 	inquirer.prompt(
 
@@ -68,7 +89,8 @@ if (existingConfig) {
 			buildConfig();
 
 		} else {
-			console.log('Bye');
+			console.log(chalk.green('Bye'));
+			process.exit(0);
 
 		}
 	});
