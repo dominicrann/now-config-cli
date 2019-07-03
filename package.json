@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "inquirer": "^6.4.1"
+  },
+  "name": "now-config-cli",
+  "version": "1.0.0",
+  "description": "a cli tool for generating a now.json",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dominic Rann <dominic568@hotmail.com>",
+  "license": "MIT"
+}
