@@ -12,28 +12,39 @@ const nowPath = path.join(process.cwd(), 'now.json');
 
 
 async function buildConfig() {
-	// console.log('working');
-
 
 	const answers = await inquirer
-		.prompt([
-			{
-				type: 'text',
-				name: 'name',
-				message: 'What is the name of the project?',
-				default: path.basename(process.cwd()),
-			},
-			{
-				type: 'number',
-				name: 'version',
-				message: 'What is the version of now you wish to deploy with?',
-				default: 2,
-			},
+		.prompt([{
+			type: 'text',
+			name: 'name',
+			message: 'What is the name of the project?',
+			default: path.basename(process.cwd()),
+		},
+		{
+			type: 'number',
+			name: 'version',
+			message: 'What is the version of Now.sh you wish to deploy with?',
+			default: 2,
+		},
+		{
+			type: 'number',
+			name: 'tabSize',
+			message: 'What indentation would you like in your now.json file (in tabs)',
+			default: 2,
+		},
 		]);
 	config.version = answers.version;
 	config.name = answers.name;
-	fs.writeFileSync(nowPath, JSON.stringify(config, null, 2), 'utf8');
-	console.log(chalk.green.bold('created now.json Successfully'));
+	console.log(chalk.green.bold('Creating/updating now.json File...'));
+
+	fs.writeFileSync(nowPath, JSON.stringify(config, null, answers.tabSize), 'utf8');
+	console.log(chalk.white.bold('========================================='));
+
+	console.log(chalk.green.bold('created/updated now.json file Successfully'));
+	console.log(chalk.white.bold('========================================='));
+
+	console.log(chalk.green.bold('Bye Bye'));
+
 
 
 
@@ -49,7 +60,7 @@ if (existingConfig) {
 			type: 'confirm',
 			name: 'overide',
 			message: 'now.json already exists would you like to override it?',
-			default: false
+			default: true
 		},
 
 	).then(answers => {

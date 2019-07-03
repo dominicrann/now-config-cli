@@ -4,7 +4,7 @@
     "inquirer": "^6.4.1"
   },
   "name": "now-config-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a cli tool for generating a now.json config file",
   "main": "index.js",
   "scripts": {
