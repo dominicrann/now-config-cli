@@ -13,20 +13,37 @@ const existingConfig = fs.existsSync('now.json');
 const nowPath = path.join(process.cwd(), 'now.json');
 
 
+
 async function buildConfig() {
 
 	const answers = await inquirer
 		.prompt([{
 			type: 'text',
 			name: 'name',
-			message: 'What is the name of the project?',
+			message: 'What is the name of the project? 📋',
 			default: path.basename(process.cwd()),
 		},
+		
 		{
 			type: 'list',
 			name: 'version',
-			message: 'What is the version of Now.sh you wish to deploy with?',
+			message: 'What is the version of Now.sh you wish to deploy with? 🔮',
 			choices: [1, 2]
+		},
+		{
+			type: 'confirm',
+			name: 'specifyAlias',
+			message: 'Would you like to specify an alias? 📖',
+			defualt: false
+		},
+		{
+			type: 'text',
+			name: 'alias',
+			message: 'Specify your alias 📖',
+			defualt: '',
+			when: function(answers){
+				return answers.specifyAlias == true;
+			}
 		},
 		{
 			type: 'number',
@@ -45,10 +62,13 @@ async function buildConfig() {
 			name: 'githubEnabled',
 			message: 'Do you want Now For Github to auto publish this project per commit/pull request?',
 			default: true,
-		}
+		},
+		
 		]);
+	
 	config.version = answers.version;
 	config.name = answers.name;
+	config.alias = answers.alias;
 	config.public = answers.public;
 	config.github = {
 		enabled: answers.githubEnabled
@@ -63,6 +83,8 @@ async function buildConfig() {
 	console.log(chalk.white.bold('========================================='));
 
 	console.log(chalk.green.bold('To deploy with Now.sh type: now'));
+	console.log(chalk.bold('😃'));	
+	
 	process.exit(0);
 
 
@@ -80,7 +102,7 @@ if (existingConfig) {
 		{
 			type: 'confirm',
 			name: 'overide',
-			message: 'now.json already exists would you like to override it?',
+			message: '⛔🚨 now.json already exists would you like to override it? ⛔🚨',
 			default: true
 		},
 

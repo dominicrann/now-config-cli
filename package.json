@@ -1,16 +1,17 @@
 {
-  "dependencies": {
-    "chalk": "^2.4.2",
-    "inquirer": "^6.4.1"
-  },
-  "name": "now-config-cli",
-  "version": "1.0.2",
-  "description": "a cli tool for generating a now.json config file",
-  "main": "index.js",
-  "bin": {
-    "now-config": "src/index.js"
-  },
-  "scripts": {},
-  "author": "Dominic Rann <dominic568@hotmail.com>",
-  "license": "MIT"
+    "dependencies": {
+        "chalk": "^2.4.2",
+        "inquirer": "^6.4.1"
+    },
+    "name": "now-config-cli",
+    "version": "1.0.4",
+    "description": "A cli tool for generating a now.json config file",
+    "main": "index.js",
+    "bin": {
+        "now-config": "src/index.js"
+    },
+    "scripts": {},
+    "author": "Dominic Rann <dominic568@hotmail.com>",
+    "homepage": "https://github.com/dominicrann/now-config-cli",
+    "license": "MIT"
 }
